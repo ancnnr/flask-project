@@ -45,6 +45,9 @@ def logout():
 
 @users.route("/account", methods=['GET', 'POST'])
 def account():
+    if not current_user.is_authenticated:
+        return redirect(url_for('users.login'))
+
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
